@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+     body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
+    background: linear-gradient(135deg, #d778e4b4 0%, #65aedcb5 100%);
+    position: relative; 
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url("https://static.vecteezy.com/system/resources/previews/036/725/313/non_2x/ai-generated-real-estate-advertisment-background-with-copy-space-free-photo.jpg") no-repeat center center;
+    background-size: cover; 
+    background-position: center;
+    z-index: -1;
+}
+
+
+.wrapper {
+    width: 400px;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(198, 191, 191, 0.234);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(7, 190, 211, 0.537);
+    transition: all 0.3s ease;
+    margin-left: 150px; 
+    margin-top: 100px;
+}
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #dcdcdceb;
+            -webkit-text-stroke: 0.5px rgba(12, 11, 11, 0.604);
+        }
+
+        .input-field {
+            position: relative;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.24);
+            margin: 15px 0;
+        }
+
+        .input-field label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color: #f2f1f1;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .input-field input {
+            width: 100%;
+            height: 45px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 0 10px;
+        }
+
+        .input-field input:focus~label,
+        .input-field input:valid~label {
+            font-size: 0.9rem;
+            top: 10px;
+            transform: translateY(-150%);
+            color: #3e61ff;
+        }
+
+        .remember-me {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.remember-me input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    text-align: right;
+    margin: 5px 0 15px;
+}
+
+.forgot-password a {
+    color: #3e61ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+/* Modal Background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color:transparent;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background: rgba(34, 32, 32, 0.577);
+    padding: 70px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    
+}
+.modal-content button {
+    margin-top: 20px; 
+}
+
+
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+        button {
+            width: 100%;
+            background-color: #f2a51ff3;
+            color: #ffffff;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: rgba(32, 204, 64, 0.958);;
+            color: rgb(255, 253, 253);
+            border-color: 2px solid white;
+        }
+
+        .toggle {
+            margin-top: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .toggle a {
+            color: #3e61ff;
+            text-decoration: none;
+        }
+
+        .toggle a:hover {
+            text-decoration: underline;
+        }
+
+        #register-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+   <!-- Login Form -->
+<form id="login-form">
+    <h2>Login</h2>
+    <div class="input-field">
+        <input type="text" required>
+        <label>Enter your email</label>
+    </div>
+    <div class="input-field">
+        <input type="password" required>
+        <label>Enter your password</label>
+    </div>
+
+    <!-- Remember Me Checkbox -->
+    <div class="remember-me">
+        <input type="checkbox" id="remember">
+        <label for="remember">Remember Me</label>
+    </div>
+
+    <!-- Forgot Password -->
+    <div class="forgot-password">
+        <a href="#" onclick="openForgotPassword()">Forgot Password?</a>
+    </div>
+    
+
+    <button type="submit">Log In</button>
+    <div class="toggle">
+        <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+    </div>
+</form>
+
+<!-- Forgot Password Popup -->
+<div id="forgot-password-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeForgotPassword()">&times;</span>
+        <h2>Reset Password</h2>
+        <p>Enter your email to reset your password</p>
+        <input type="email" id="forgot-email" placeholder="Enter your email">
+        <button onclick="submitForgotPassword()">Submit</button>
+    </div>
+</div>
+
+        <!-- Register Form -->
+        <form id="register-form">
+            <h2>Register</h2>
+            <div class="input-field">
+                <input type="text" required>
+                <label>Full Name</label>
+            </div>
+            <div class="input-field">
+                <input type="email" required>
+                <label>Email</label>
+            </div>
+            <div class="input-field">
+                <input type="password" required>
+                <label>Password</label>
+            </div>
+            <div class="input-field">
+                <input type="password" required>
+                <label>Confirm Password</label>
+            </div>
+       
+
+            <button type="submit">Sign Up</button>
+            <div class="toggle">
+                <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+            </div>
+        </form>
+    </div>
+    
+
+    <script>
+        function showRegister() {
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("register-form").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("register-form").style.display = "none";
+            document.getElementById("login-form").style.display = "block";
+        }
+        function openForgotPassword() {
+    document.getElementById("forgot-password-modal").style.display = "flex";
+}
+
+function closeForgotPassword() {
+    document.getElementById("forgot-password-modal").style.display = "none";
+}
+
+function submitForgotPassword() {
+    var email = document.getElementById("forgot-email").value;
+    if (email) {
+        alert("Password reset link sent to " + email);
+        closeForgotPassword();
+    } else {
+        alert("Please enter a valid email.");
+    }
+}
+
+    </script>
+
+</body>
+</html>
